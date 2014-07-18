@@ -68,16 +68,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 }
             })
 
-            .state('tab.standings', {
-                url: '/standings',
-                views: {
-                    'tab-account': {
-                        templateUrl: 'templates/tab-standings.html',
-                        controller: 'StandingsCtrl'
-                    }
-                }
-            })
-
             .state('tab.friend-detail', {
                 url: '/friend/:friendId',
                 views: {

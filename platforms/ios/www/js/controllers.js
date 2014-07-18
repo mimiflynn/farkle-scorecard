@@ -12,7 +12,4 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ReferenceCtrl', function($scope) {
-})
-
-.controller('StandingsCtrl', function($scope) {
 });
