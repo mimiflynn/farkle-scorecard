@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('farkle.controllers', [])
 
 .controller('RulesCtrl', function($scope) {
 })

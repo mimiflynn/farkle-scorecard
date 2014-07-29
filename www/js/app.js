@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('farkle', ['ionic', 'farkle.controllers', 'farkle.services'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -41,7 +41,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             .state('tab.rules', {
                 url: '/rules',
                 views: {
-                    'tab-dash': {
+                    'tab-rules': {
                         templateUrl: 'templates/tab-rules.html',
                         controller: 'RulesCtrl'
                     }
@@ -51,7 +51,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             .state('tab.scorecard', {
                 url: '/scorecard',
                 views: {
-                    'tab-friends': {
+                    'tab-scorecard': {
                         templateUrl: 'templates/tab-scorecard.html',
                         controller: 'ScorecardCtrl'
                     }
@@ -61,7 +61,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             .state('tab.reference', {
                 url: '/reference',
                 views: {
-                    'tab-account': {
+                    'tab-reference': {
                         templateUrl: 'templates/tab-reference.html',
                         controller: 'ReferenceCtrl'
                     }
@@ -71,7 +71,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             .state('tab.standings', {
                 url: '/standings',
                 views: {
-                    'tab-account': {
+                    'tab-standings': {
                         templateUrl: 'templates/tab-standings.html',
                         controller: 'StandingsCtrl'
                     }
