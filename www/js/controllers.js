@@ -1,18 +1,27 @@
 angular.module('farkle.controllers', [])
 
-.controller('RulesCtrl', function($scope) {
-})
+    .controller('RulesCtrl', function ($scope) {
+    })
 
-.controller('ScorecardCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
-})
+    .controller('ScorecardCtrl', function ($scope, Players) {
+        $scope.players = Players.all();
 
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
-})
+        $scope.leftButtons = [
+            {
+                type: 'button-icon icon ion-navicon',
+                tap: function (e) {
+                    console.log('Going back!');
+                }
+            }
+        ];
+    })
 
-.controller('ReferenceCtrl', function($scope) {
-})
+    .controller('playerDetailCtrl', function ($scope, $stateParams, Players) {
+        $scope.player = Players.get($stateParams.playerId);
+    })
 
-.controller('StandingsCtrl', function($scope) {
-});
+    .controller('ReferenceCtrl', function ($scope) {
+    })
+
+    .controller('StandingsCtrl', function ($scope) {
+    });

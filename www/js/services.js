@@ -3,11 +3,11 @@ angular.module('farkle.services', [])
 /**
  * A simple example service that returns some data.
  */
-.factory('Friends', function() {
+.factory('Players', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var friends = [
+  var players = [
     { id: 0, name: 'Scruff McGruff' },
     { id: 1, name: 'G.I. Joe' },
     { id: 2, name: 'Miss Frizzle' },
@@ -16,11 +16,11 @@ angular.module('farkle.services', [])
 
   return {
     all: function() {
-      return friends;
+      return players;
     },
-    get: function(friendId) {
+    get: function(playerId) {
       // Simple index lookup
-      return friends[friendId];
+      return players[playerId];
     }
   }
 });
