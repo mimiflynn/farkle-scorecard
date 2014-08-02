@@ -1,3 +1,34 @@
+Farkle Scorecard
+=====================
+
+So you never need paper!
+
+## Features
+
+- List of rules in easy to access fashion
+- Points reference in easy to access fashion
+- mobile only
+- keep track of if a score was 'farkled' over
+- have option to steal points from a previous player on a farkle
+- save games
+- stats for who had the most points in one turn with a farkle and without
+
+
+## Tech
+
+- Ionic Framework
+- http://learn.ionicframework.com/formulas/localstorage/
+- https://github.com/brodysoft/Cordova-SQLitePlugin
+
+
+## User Flow
+
+- (optional) Sign in
+- Start new game or Open saved game
+- add names of players in the order they will roll
+- players roll until on the board (500 or 1000 point options)
+
+
 Ionic App Base
 =====================
 

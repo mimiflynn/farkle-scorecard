@@ -82,7 +82,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 url: '/friend/:friendId',
                 views: {
                     'tab-friends': {
-                        templateUrl: 'templates/friend-detail.html',
+                        templateUrl: 'templates/player-detail.html',
                         controller: 'FriendDetailCtrl'
                     }
                 }

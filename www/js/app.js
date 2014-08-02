@@ -78,12 +78,12 @@ angular.module('farkle', ['ionic', 'farkle.controllers', 'farkle.services'])
                 }
             })
 
-            .state('tab.friend-detail', {
-                url: '/friend/:friendId',
+            .state('tab.player-detail', {
+                url: '/player/:playerId',
                 views: {
-                    'tab-friends': {
-                        templateUrl: 'templates/friend-detail.html',
-                        controller: 'FriendDetailCtrl'
+                    'tab-scorecard': {
+                        templateUrl: 'templates/player-detail.html',
+                        controller: 'playerDetailCtrl'
                     }
                 }
             });
