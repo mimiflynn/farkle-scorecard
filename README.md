@@ -29,6 +29,19 @@ So you never need paper!
 - players roll until on the board (500 or 1000 point options)
 
 
+## Development
+
+Be sure to install global dependencies with `npm install -g ionic express` and then install project dependencies with `npm install` 
+
+### Client Side
+
+`ionic serve` runs the client side server with auto refresh upon save and watchers and all that good ionic stuff
+
+### Server Side
+
+`node server.js` starts up the express.js backend server on port 3000 
+
+
 Ionic App Base
 =====================
 
