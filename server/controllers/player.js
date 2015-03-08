@@ -27,8 +27,8 @@ exports.create = function(req, res) {
     var player = new Player(req.body);
     player.user = req.user;
 
-    console.log('req: ', req);
-    // console.log('res: ', res);
+    console.log(req)
+    console.log('req.body: ', req.body);
 
     player.save(function(err) {
         if (err) {

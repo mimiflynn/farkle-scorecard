@@ -1,4 +1,4 @@
-angular.module('farkle.controllers', [])
+angular.module('farkle')
 
     .controller('RulesCtrl', function ($scope) {
     })
@@ -23,7 +23,7 @@ angular.module('farkle.controllers', [])
         $scope.addNewPlayer = function () {
 
             var newPlayerPopup = {
-                template: '<input type="text" ng-model="newPlayer.name">',
+                template: '<input type="text" name="name" ng-model="newPlayer.name">',
                 title: 'New Player',
                 subTitle: 'Name',
                 scope: $scope,
@@ -33,7 +33,6 @@ angular.module('farkle.controllers', [])
                         text: '<b>Save</b>',
                         type: 'button-positive',
                         onTap: function (e) {
-
                             if (!$scope.newPlayer.name) {
 
                                 console.log('need a name', $scope.newPlayer);
@@ -41,7 +40,6 @@ angular.module('farkle.controllers', [])
                             } else {
 
                                 var player = new Players($scope.newPlayer);
-
                                 console.log('player: ', player)
 
                                 player.$save(function (response) {
@@ -57,7 +55,7 @@ angular.module('farkle.controllers', [])
                 ]
             };
 
-            $ionicPopup.show(newPlayerPopup);
+            return $ionicPopup.show(newPlayerPopup);
         }
 
         console.log($scope);

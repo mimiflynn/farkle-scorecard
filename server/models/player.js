@@ -10,7 +10,6 @@ var PlayerSchema = new Schema({
     },
     name: {
         type: String,
-        default: '',
         trim: true
     }
 });

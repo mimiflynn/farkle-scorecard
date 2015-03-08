@@ -1,13 +1,13 @@
-angular.module('farkle.services', [])
-    .factory('Players', ['$resource', function ($resource) {
+angular.module('farkle')
+  .factory('Players', function ($resource) {
 
-        var url = 'http://192.168.1.129:3000/player/:playerId';
+    var url = 'http://localhost:4000';
 
-        return $resource(url, {
-            playerId: '@_id'
-        }, {
-            update: {
-                method: 'PUT'
-            }
-        });
-    }]);
+    return $resource(url + '/player/:playerId', {
+      playerId: '@_id'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  });
