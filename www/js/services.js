@@ -1,35 +1,13 @@
-angular.module('farkle.services', [])
+angular.module('farkle')
+  .factory('Players', function ($resource) {
 
-/**
- * A simple example service that returns some data.
- */
-    .factory('Players', function () {
-        // Might use a resource here that returns a JSON array
+    var url = 'http://localhost:3000';
 
-        // Some fake testing data
-        var players = [
-            {
-                id: 0,
-                name: 'Mimi Flynn'
-            }, {
-                id: 1,
-                name: 'Anna Chapman'
-            }, {
-                id: 2,
-                name: 'Annette Haynes'
-            }, {
-                id: 3,
-                name: 'Zac'
-            }
-        ];
-
-        return {
-            all: function () {
-                return players;
-            },
-            get: function (playerId) {
-                // Simple index lookup
-                return players[playerId];
-            }
-        }
+    return $resource(url + '/player/:playerId', {
+      playerId: '@_id'
+    }, {
+      update: {
+        method: 'PUT'
+      }
     });
+  });

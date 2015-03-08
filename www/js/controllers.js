@@ -1,52 +1,110 @@
-angular.module('farkle.controllers', [])
+angular.module('farkle')
 
-    .controller('RulesCtrl', function ($scope) {
-    })
+  .controller('RulesCtrl', function ($scope) {
+  })
 
-    .controller('ScorecardCtrl', function ($scope, $ionicPopup, Players) {
-        var newPlayerPopup = {
-            template: '<input type="text" ng-model="newPlayer.name">',
-            title: 'New Player',
-            subTitle: 'Name',
-            scope: $scope,
-            buttons: [
-                { text: 'Cancel' },
-                {
-                    text: '<b>Save</b>',
-                    type: 'button-positive',
-                    onTap: function(e) {
-                        if (!$scope.newPlayer) {
-                            console.log('need a name');
-                        } else {
-                            $scope.players.push($scope.newPlayer);
-                            console.log($scope.players);
-                        }
-                    }
-                }
-            ]
-        };
+  .controller('ScorecardCtrl', function ($scope, $ionicPopup, Players) {
 
-        $scope.players = Players.all();
+    $scope.newPlayer = {};
 
-        $scope.leftButtons = [
-            {
-                type: 'button-icon icon ion-navicon'
+    $scope.findPlayers = function () {
+      Players.query(function (players) {
+        $scope.players = players;
+        console.log($scope.players);
+      });
+    };
+
+    $scope.leftButtons = [
+      {
+        type: 'button-icon icon ion-navicon'
+      }
+    ];
+
+    $scope.addNewPlayer = function () {
+
+      var newPlayerPopup = {
+        template: '<input type="text" name="name" ng-model="newPlayer.name">',
+        title: 'New Player',
+        subTitle: 'Name',
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          {
+            text: '<b>Save</b>',
+            type: 'button-positive',
+            onTap: function (e) {
+              console.log('scope: ', $scope);
+              if (!$scope.newPlayer.name) {
+
+                console.log('need a name', $scope.newPlayer);
+
+              } else {
+
+                var player = new Players($scope.newPlayer);
+                console.log('player: ', player);
+
+                player.$save(function (response) {
+
+                  console.log('saved!', response);
+
+                  // update list with new player
+                  $scope.findPlayers();
+                });
+              }
             }
-        ];
+          }
+        ]
+      };
 
-        $scope.addNewPlayer = function(){
-            $ionicPopup.show(newPlayerPopup);
-        }
+      return $ionicPopup.show({
+        template: '<input type="text" name="name" ng-model="newPlayer.name">',
+        title: 'New Player',
+        subTitle: 'Name',
+        scope: $scope,
+        buttons: [
+          {
+            text: 'Cancel',
+            onTap: function () {
+              console.log('cancelled');
+            }
+          },
+          {
+            text: '<b>Save</b>',
+            type: 'button-positive',
+            onTap: function (e) {
+              console.log('scope: ', $scope);
+              if (!$scope.newPlayer.name) {
 
-        console.log($scope);
-    })
+                console.log('need a name', $scope.newPlayer);
 
-    .controller('playerDetailCtrl', function ($scope, $stateParams, Players) {
-        $scope.player = Players.get($stateParams.playerId);
-    })
+              } else {
 
-    .controller('ReferenceCtrl', function ($scope) {
-    })
+                var player = new Players($scope.newPlayer);
+                console.log('player: ', player);
 
-    .controller('StandingsCtrl', function ($scope) {
-    });
+                player.$save(function (response) {
+
+                  console.log('saved!', response);
+
+                  // update list with new player
+                  $scope.findPlayers();
+                });
+              }
+            }
+          }
+        ]
+      });
+    }
+
+    console.log($scope);
+  })
+
+  .controller('playerDetailCtrl', function ($scope, $stateParams, Players) {
+    $scope.player = Players.get($stateParams.playerId);
+  })
+
+  .controller('ReferenceCtrl', function ($scope) {
+  })
+
+  .controller('StandingsCtrl', function ($scope) {
+  });
