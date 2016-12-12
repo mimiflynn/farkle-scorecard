@@ -1,11 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
+import PlayerForm from './components/player-form';
 import PlayerList from './components/player-list';
 import Reference from './components/reference';
 import Rules from './components/rules';
 
-import { fetchPlayers } from '../../actions/player';
+import { fetchPlayers, savePlayer } from '../../actions/player';
 import { isEmpty } from '../../utils/utils';
 
 const Loading = () => (
@@ -23,6 +24,12 @@ class Farkle extends Component {
       drawerOpen: false,
       loading: true
     };
+
+    this.handleSubmitForm = this.handleSubmitForm.bind(this);
+  }
+
+  handleSubmitForm (player) {
+    this.props.dispatch(savePlayer(player));
   }
 
   componentWillReceiveProps (nextProps) {
@@ -38,9 +45,18 @@ class Farkle extends Component {
   render () {
     return (
       <div>
-        {(!this.state.loading) ? <PlayerList {...this.props} /> : <Loading />}
-        <Rules />
-        <Reference />
+        <div className="container">
+          <PlayerForm submitForm={this.handleSubmitForm} />
+        </div>
+        <div className="container">
+          {(!this.state.loading) ? <PlayerList {...this.props} /> : <Loading />}
+        </div>
+        <div className="container">
+          <Rules />
+        </div>
+        <div className="container">
+          <Reference />
+        </div>
       </div>
     );
   }
@@ -52,8 +68,8 @@ Farkle.propTypes = {
   route: PropTypes.object
 };
 
-function mapStateToProps ({ players }) {
-  return players;
+function mapStateToProps ({ player }) {
+  return player.players;
 }
 
 export default connect(mapStateToProps)(Farkle);

@@ -1,9 +1,10 @@
-const constants = require('../constants');
-const { api } = require('../config.js');
+import constants from '../constants';
+import { getJSON, saveJSON } from '../utils/ss';
 
-const url = api.baseUrl + api.users;
+const key = 'players';
 
 function receivePlayers (json) {
+  console.log('receivePlayers', json);
   return {
     type: constants.RECEIVE_PLAYERS,
     json,
@@ -13,11 +14,23 @@ function receivePlayers (json) {
 
 function fetchPlayers () {
   return dispatch => {
-    return fetch(url)
-      .then(req => req.json())
-      .then(json => dispatch(receivePlayers(json)));
+    return getJSON(key)
+      .then(
+        (json) => dispatch(receivePlayers(json)),
+        (error) => dispatch(receivePlayers(error))
+      );
   };
 }
 
-module.exports = { fetchPlayers, receivePlayers };
+function savePlayer (player) {
+  return dispatch => {
+    return saveJSON(key, player)
+      .then(
+        (json) => dispatch(receivePlayers(json)),
+        (error) => dispatch(receivePlayers(error))
+      );
+  };
+}
+
+module.exports = { fetchPlayers, receivePlayers, savePlayer };
 
