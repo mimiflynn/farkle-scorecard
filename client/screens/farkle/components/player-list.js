@@ -1,17 +1,14 @@
 import React, { PropTypes } from 'react';
 
-import { orderByDate } from '../../../utils/utils';
-
 const Players = ({
   players
 }) => {
-  const sortedPlayers = orderByDate(players, 'joined');
-
-  const PlayerList = sortedPlayers.map((user, index) => (
+  const PlayerList = Object.keys(players).map((player, index) => (
     <li key={'player-' + index} className="player-list-item">
-      {user.name}
+      {player}
     </li>
   ));
+  console.log('players', players);
 
   return (
     <div>
@@ -24,7 +21,7 @@ const Players = ({
 };
 
 Players.propTypes = {
-  players: PropTypes.array
+  players: PropTypes.object
 };
 
 export default Players;

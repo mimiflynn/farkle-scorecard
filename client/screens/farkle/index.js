@@ -29,7 +29,13 @@ class Farkle extends Component {
   }
 
   handleSubmitForm (player) {
-    this.props.dispatch(savePlayer(player));
+    const players = this.props.players;
+    players[player] = {};
+    this.props.dispatch(savePlayer(players));
+  }
+
+  renderPlayerList () {
+    return (this.props.players.message) ? 'Add players' : <PlayerList players={this.props.players} />;
   }
 
   componentWillReceiveProps (nextProps) {
@@ -43,13 +49,14 @@ class Farkle extends Component {
   }
 
   render () {
+    console.log('props', this.props);
     return (
       <div>
         <div className="container">
           <PlayerForm submitForm={this.handleSubmitForm} />
         </div>
         <div className="container">
-          {(!this.state.loading) ? <PlayerList {...this.props} /> : <Loading />}
+          {(!this.state.loading) ? this.renderPlayerList() : <Loading />}
         </div>
         <div className="container">
           <Rules />
@@ -63,13 +70,14 @@ class Farkle extends Component {
 }
 
 Farkle.propTypes = {
-  players: PropTypes.array,
+  players: PropTypes.object,
   dispatch: PropTypes.func,
   route: PropTypes.object
 };
 
-function mapStateToProps ({ player }) {
-  return player.players;
+function mapStateToProps (state) {
+  console.log('state', state);
+  return { state.player.players };
 }
 
 export default connect(mapStateToProps)(Farkle);

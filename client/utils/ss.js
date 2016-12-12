@@ -4,11 +4,11 @@
 const getJSON = (key) => {
   return new Promise((resolve, reject) => {
     const value = sessionStorage.getItem(key);
-    if (value !== 'undefined') {
-      resolve(JSON.parse(value));
+    if (value !== null) {
+      resolve({ players: JSON.parse(value) });
     } else {
       console.log('getJSON reject');
-      reject({ message: 'empty' });
+      reject({});
     }
   });
 };
@@ -18,10 +18,10 @@ const saveJSON = (key, obj) => {
   return new Promise((resolve, reject) => {
     sessionStorage.setItem(key, JSON.stringify(obj));
     const value = sessionStorage.getItem(key);
-    if (value !== 'undefined') {
+    if (value !== null) {
       resolve(JSON.parse(value));
     } else {
-      reject({ message: 'empty' });
+      reject({});
     }
   });
 };
