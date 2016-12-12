@@ -2,6 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
 import PlayerList from './components/player-list';
+import Reference from './components/reference';
+import Rules from './components/rules';
 
 import { fetchPlayers } from '../../actions/player';
 import { isEmpty } from '../../utils/utils';
@@ -21,15 +23,6 @@ class Farkle extends Component {
       drawerOpen: false,
       loading: true
     };
-
-    this.handleOpen = this.handleOpen.bind(this);
-    this.pollUsers = this.pollUsers.bind(this);
-  }
-
-  pollUsers () {
-    this.pollInterval = window.setInterval(() => {
-      this.props.dispatch(fetchPlayers());
-    }, 2000);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -40,22 +33,14 @@ class Farkle extends Component {
 
   componentDidMount () {
     this.props.dispatch(fetchPlayers());
-    // Example of client side polling
-    // this.pollUsers();
-  }
-
-  componentWillUnmount () {
-    // clearInterval(this.pollInterval);
-  }
-
-  handleOpen () {
-    this.setState({ drawerOpen: (!this.state.drawerOpen) });
   }
 
   render () {
     return (
-      <div className={divClasses}>
+      <div>
         {(!this.state.loading) ? <PlayerList {...this.props} /> : <Loading />}
+        <Rules />
+        <Reference />
       </div>
     );
   }

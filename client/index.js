@@ -7,7 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { Home } from './screens/home/index';
 import Farkle from './screens/farkle/index';
 
-import { configureStore } from './store';
+import configureStore from './store';
 
 import './scss/main.scss';
 
