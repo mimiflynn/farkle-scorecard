@@ -1,0 +1,5 @@
+module.exports = {
+  FETCH_PLAYERS: 'FETCH_PLAYERS',
+  RECEIVE_PLAYERS: 'RECEIVE_PLAYERS'
+};
+

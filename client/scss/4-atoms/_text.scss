@@ -1,0 +1,36 @@
+// ----------------------------------------------------------
+// Contextual Typography
+// ----------------------------------------------------------
+
+// EXAMPLE PARTIAL INCLUDE
+// ----------------------------------------------------------
+//
+// .text-snazzy-blue {
+//  color: $primary-blue;
+//  font-weight: bold;
+// }
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.section-subtitle {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.title {
+  font-weight: 400;
+}
+.title-emphasis {
+  font-style: italic;
+}
+.title-strong {
+  font-weight: 600;
+}
+.subtitle {
+  font-weight: 400;
+  font-style: italic;
+}

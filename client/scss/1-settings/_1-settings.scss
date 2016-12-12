@@ -1,0 +1,60 @@
+// ----------------------------------------------------------
+// 1-SETTINGS: global settings, configuration, brand colors, etc.
+// ----------------------------------------------------------
+
+// EXAMPLES
+// ----------------------------------------------------------
+//
+// Colors
+// $primary-blue: #0B62AC;
+// $light-blue: #40A4DD;
+// $primary-gray: #282828;
+
+// Typography
+// --------------------------------------------------
+// $primary-font-family: Helvetica, Arial, sans-serif;
+// $secondary-font-family: Helvetica, Arial, sans-serif;
+
+// Colors
+
+$fv-lt-blue: #0CACD7;
+$fv-dk-blue: #0E9EC5;
+$fv-lt-navy: #325173;
+$fv-md-navy: #29425E;
+$fv-dk-navy: #233951;
+$fv-white: #FFFFFF;
+$fv-xlt-grey: #EDEDED;
+$fv-lt-grey: #D5D5D5;
+$fv-md-grey: #666666;
+$fv-dk-grey: #333333;
+
+$fv-danger: #F26D63;
+$fv-danger-active: #E2645A;
+
+// Fonts
+
+$primary-font-family: 'Open Sans', sans-serif;
+
+
+// Color Assignment
+
+// Backgrounds
+$main-background: $fv-lt-navy;
+$drawer-background: $fv-xlt-grey;
+$nav-background: $fv-md-navy;
+
+$primary-default-link: $fv-lt-blue;
+$primary-active-link: $fv-dk-blue;
+
+$primary-text: $fv-md-grey;
+
+
+// Avatar fills
+
+$fv-yellow: #FFC619;
+$fv-orange: #F7941E;
+$fv-teal: #76CABF;
+$fv-pink: #BE7DAF;
+$fv-blue: #4771A0;
+
+

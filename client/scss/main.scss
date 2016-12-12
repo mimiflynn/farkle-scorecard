@@ -1,0 +1,33 @@
+/* ************************************************
+
+MAIN.SCSS
+outputs final master css file
+
+MEHTODOLOGY -- Organized in the Inverted Triangle CSS (ITCSS) hierarchy
+Styles set from broad to specific
+
+************************************************ */
+
+// ----------------------------------------------------------
+// 0-VENDOR: unedited third party libraries
+@import "0-vendor/_0-vendor.scss";
+
+// ----------------------------------------------------------
+// 1-SETTINGS: global settings, configuration, brand colors, etc.
+@import "1-settings/_1-settings.scss";
+
+// ----------------------------------------------------------
+// 2-TOOLS: globally available tools, public mixins, helper functions
+@import "2-tools/_2-tools.scss";
+
+// ----------------------------------------------------------
+// 3-BASE: ground zero styles, unclassed HTML elements, type selectors: no classes
+@import "3-base/_3-base.scss";
+
+// ----------------------------------------------------------
+// 4-ATOMS: basic ui components with distinct properties such as buttons, inputs, labels etc.
+@import "4-atoms/_4-atoms.scss";
+
+// ----------------------------------------------------------
+// 5-MOLECULES: groups of elements (atoms) that function as a unit
+@import "5-molecules/_5-molecules.scss";

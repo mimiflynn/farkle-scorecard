@@ -1,0 +1,56 @@
+// ----------------------------------------------------------
+// 3-BASE: ground zero styles, unclassed HTML elements, type selectors: no classes
+// ----------------------------------------------------------
+
+// EXAMPLES
+// ----------------------------------------------------------
+//
+// body {
+//   font-size: 14px;
+//   color: $primary-gray;
+//   font-family: $primary-font-family;
+// }
+//
+// h1, h2, h3, h4, h5, h6 {
+//   font-family: $secondary-font-family;
+// }
+
+// Open Sans reference: https://www.google.com/fonts/specimen/Open+Sans
+body {
+  font-family: $primary-font-family;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.4em;
+  background: $main-background;
+  color: $primary-text;
+}
+
+h1 {
+  font-size: 34px;
+  font-weight: 300;
+}
+h2 {
+  font-size: 26px;
+  font-weight: 600;
+}
+h3 {
+  font-size: 22px;
+  font-weight: 300;
+}
+h4 {
+  font-size: 22px;
+  font-weight: 600;
+}
+h5 {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+h6 {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+a:hover {
+   text-decoration: none;
+}

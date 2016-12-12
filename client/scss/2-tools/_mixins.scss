@@ -1,0 +1,21 @@
+// EXAMPLES
+// ----------------------------------------------------------
+//
+// Mixin to apply vender prefix to multiple properties at once
+// @param {Map} $map - Declarations to prefix
+// @param {List} $vendors (()) - List of prefixes to print
+
+// .element {
+//   @include prefix((transform: translate(-50%, -50%)), webkit ms);
+// }
+
+// @mixin prefix($map, $vendors: webkit moz ms o) {
+//   @each $prop, $value in $map {
+//         @if $vendors {
+//           @each $vendor in $vendors {
+//             #{"-" + $vendor + "-" + $prop}: #{$value};
+//           }
+//         }
+//         #{$prop}: #{$value};
+//   }
+// }

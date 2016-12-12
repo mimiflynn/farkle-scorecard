@@ -1,0 +1,65 @@
+// ----------------------------------------------------------
+// 2-TOOLS: globally available tools, public mixins, helper functions
+// ----------------------------------------------------------
+
+// EXAMPLES
+// ----------------------------------------------------------
+//
+// Z-Index Scale - Use these to keep consistent vertical "layers" in the application
+// Use sparingly and leverage native browser rendering as much as possible
+// $z-index1: 100;
+// $z-index2: 200;
+// $z-index3: 300;
+// $z-index4: 400;
+// $z-index5: 500;
+// $z-index6: 600;
+// $z-index7: 700;
+// $z-index8: 800;
+// $z-index9: 900;
+// $z-index10: 1000;
+
+// vertical spacers used to easily position spacing between contents
+// .vspacer5 {
+//   margin-top: 5px;
+// }
+// .vspacer10 {
+//   margin-top: 10px;
+// }
+// .vspacer15 {
+//   margin-top: 15px;
+// }
+// .vspacer20 {
+//   margin-top: 20px;
+// }
+// .vspacer25 {
+//   margin-top: 25px;
+// }
+// .vspacer30 {
+//   margin-top: 30px;
+// }
+// .vspacer35 {
+//   margin-top: 35px;
+// }
+// .vspacer40 {
+//   margin-top: 40px;
+// }
+// .vspacer45 {
+//   margin-top: 45px;
+// }
+// .vspacer50 {
+//   margin-top: 50px;
+// }
+
+// Utilities
+// .pull-right {
+//   float: right;
+// }
+// .hide {
+//   display: none;
+// }
+// .clear-both {
+//   clear: both;
+// }
+// .overflow-hidden {
+//   overflow: hidden;
+// }
