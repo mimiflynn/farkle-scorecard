@@ -3,3 +3,4 @@ www/lib/
 npm-debug.log
 .DS_Store
 .idea
+dist/js/
