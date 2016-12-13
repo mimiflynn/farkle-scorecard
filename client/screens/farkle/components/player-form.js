@@ -16,9 +16,6 @@ class PlayerForm extends Component {
   }
 
   handleChange (event) {
-    // capture form value as user adds to form
-    console.log('change', event.target);
-
     // convert target data into a key value pair
     const name = event.target.name;
     const value = event.target.value;
@@ -28,7 +25,6 @@ class PlayerForm extends Component {
     this.setState({
       value: Object.assign({}, this.state.value, keyValue)
     });
-    console.log('state', this.state.value);
   }
 
   handleSubmitForm (event) {

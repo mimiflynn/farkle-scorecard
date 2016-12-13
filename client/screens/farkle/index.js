@@ -21,7 +21,6 @@ class Farkle extends Component {
     super(props);
 
     this.state = {
-      drawerOpen: false,
       loading: true
     };
 
@@ -39,6 +38,7 @@ class Farkle extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    console.log('nextProps', nextProps);
     this.setState({
       loading: isEmpty(nextProps.players)
     });
@@ -77,7 +77,7 @@ Farkle.propTypes = {
 
 function mapStateToProps (state) {
   console.log('state', state);
-  return { state.player.players };
+  return state.player;
 }
 
 export default connect(mapStateToProps)(Farkle);

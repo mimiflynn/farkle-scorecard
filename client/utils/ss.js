@@ -5,7 +5,7 @@ const getJSON = (key) => {
   return new Promise((resolve, reject) => {
     const value = sessionStorage.getItem(key);
     if (value !== null) {
-      resolve({ players: JSON.parse(value) });
+      resolve(JSON.parse(value));
     } else {
       console.log('getJSON reject');
       reject({});
