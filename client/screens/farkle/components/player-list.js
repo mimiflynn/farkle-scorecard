@@ -1,28 +1,49 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
-const Players = ({
-  players
-}) => {
+const Player = SortableElement(({ player, index }) => (
+  <li key={index} className="player-list-item">
+    { player }
+  </li>
+));
+
+const List = SortableContainer(({ players }) => {
   const PlayerList = Object.keys(players).map((player, index) => (
-    <li key={'player-' + index} className="player-list-item">
-      {player}
-    </li>
+    <Player player={player} index={index} key={'player-' + index} />
   ));
-  console.log('players', players);
-
   return (
-    <div>
-      <h3>Players</h3>
-      <ul className="player-list">
-        {PlayerList}
-      </ul>
-    </div>
+    <ul className="player-list">
+      { PlayerList }
+    </ul>
   );
-};
+});
 
-Players.propTypes = {
+class SortablePlayerList extends Component {
+  constructor (props) {
+    super(props);
+
+    this.onSortEnd = this.onSortEnd.bind(this);
+  }
+
+  onSortEnd ({ oldIndex, newIndex }) {
+    this.setState({
+      items: arrayMove(this.state.items, oldIndex, newIndex)
+    });
+  }
+
+  render () {
+    return (
+      <div>
+        <h3>Players</h3>
+        <List players={this.props.players} />
+      </div>
+    );
+  }
+}
+
+SortablePlayerList.propTypes = {
   players: PropTypes.object
 };
 
-export default Players;
+export default SortablePlayerList;
 

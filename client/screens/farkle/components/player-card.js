@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { DragSource } from 'react-dnd');
 import { connect } from 'react-redux';
 
 import Mute from './mute';
