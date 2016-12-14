@@ -8,7 +8,7 @@ const getJSON = (key) => {
       resolve(JSON.parse(value));
     } else {
       console.log('getJSON reject');
-      reject({});
+      reject([]);
     }
   });
 };
@@ -21,7 +21,7 @@ const saveJSON = (key, obj) => {
     if (value !== null) {
       resolve(JSON.parse(value));
     } else {
-      reject({});
+      reject([]);
     }
   });
 };

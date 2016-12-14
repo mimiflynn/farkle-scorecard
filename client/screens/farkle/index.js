@@ -11,7 +11,7 @@ import { isEmpty } from '../../utils/utils';
 
 const Loading = () => (
   <div className="farkle-loading">
-    <h1 className="farkle-loading-title">Loading</h1>
+    <h1 className="farkle-loading-title">Add Players</h1>
   </div>
 );
 
@@ -21,20 +21,27 @@ class Farkle extends Component {
     super(props);
 
     this.state = {
-      loading: true
+      loading: true,
+      turnOrder: []
     };
 
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    this.onSortEnd = this.onSortEnd.bind(this);
   }
 
   handleSubmitForm (player) {
-    const players = this.props.players;
-    players[player] = {};
+    console.log('handleSubmitForm', player);
+    const players = this.props.players.slice(0);
+    players.push(player);
+    this.props.dispatch(savePlayer(players));
+  }
+
+  onSortEnd (players) {
     this.props.dispatch(savePlayer(players));
   }
 
   renderPlayerList () {
-    return (this.props.players.message) ? 'Add players' : <PlayerList players={this.props.players} />;
+    return (this.props.players) ? <Loading /> : <PlayerList onSortEnd={this.onSortEnd} players={this.props.players} />;
   }
 
   componentWillReceiveProps (nextProps) {
@@ -56,7 +63,7 @@ class Farkle extends Component {
           <PlayerForm submitForm={this.handleSubmitForm} />
         </div>
         <div className="container">
-          {(!this.state.loading) ? this.renderPlayerList() : <Loading />}
+          {(!this.state.loading) ? <PlayerList onSortEnd={this.onSortEnd} players={this.props.players} /> : <Loading />}
         </div>
         <div className="container">
           <Rules />
@@ -70,7 +77,7 @@ class Farkle extends Component {
 }
 
 Farkle.propTypes = {
-  players: PropTypes.object,
+  players: PropTypes.array,
   dispatch: PropTypes.func,
   route: PropTypes.object
 };

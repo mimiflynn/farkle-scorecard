@@ -39,8 +39,11 @@ class PlayerForm extends Component {
     }
 
     if (errors.length === 0) {
-      player = this.state.value.name;
+      player = this.state.value;
       this.props.submitForm(player);
+      this.setState({
+        value: {}
+      });
     } else {
       // show errors
       errors.forEach((item) => {

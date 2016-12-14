@@ -22,9 +22,10 @@ function fetchPlayers () {
   };
 }
 
-function savePlayer (player) {
+function savePlayer (players) {
+  console.log('action players', players);
   return dispatch => {
-    return saveJSON(key, player)
+    return saveJSON(key, players)
       .then(
         (json) => dispatch(receivePlayers(json)),
         (error) => dispatch(receivePlayers(error))
