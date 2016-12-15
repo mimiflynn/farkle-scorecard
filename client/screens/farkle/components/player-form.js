@@ -10,7 +10,9 @@ class PlayerForm extends Component {
 
     this.state = {
       errors: {},
-      value: {}
+      value: {
+        score: 0
+      }
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -46,7 +48,9 @@ class PlayerForm extends Component {
       player = this.state.value;
       this.props.submitForm(player);
       this.setState({
-        value: {}
+        value: {
+          score: 0
+        }
       });
     } else {
       // show errors
@@ -69,9 +73,11 @@ class PlayerForm extends Component {
         <div className="margin-bottom-20">
           <h2 className="text-upper">Add Player</h2>
           <form id="player-form" name="player-form" onChange={this.handleChange} onSubmit={this.handleSubmitForm}>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input type="text" className="form-control" name="name" id="name" aria-describedby="name" placeholder="" />
+            <div className="form-group row">
+              <label htmlFor="name" className="col-xs-2 col-form-label">Name</label>
+              <div className="col-xs-10">
+                <input type="text" className="form-control" name="name" id="name" aria-describedby="name" placeholder="" />
+              </div>
             </div>
             {(!isEmpty(this.state.errors)) ? this.renderError('name') : null}
             <button type="submit" className="btn primary-btn">Submit

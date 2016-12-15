@@ -1,15 +1,32 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 import Wrapper from '../components/wrapper';
-import Index from './index';
-import PlayerCard from './components/player-card';
+// import PlayerCard from './components/player-card';
 
 import { fetchPlayers, savePlayer } from '../../actions/player';
 import { isEmpty } from '../../utils/utils';
 
-class Game extends Index {
+class Game extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      currentPlayer: 0
+    };
+
+    this.handlePlayerClick = this.handlePlayerClick.bind(this);
+  }
+
+  handlePlayerClick (e) {
+    console.log('player click', e);
+    this.setState({
+      currentPlayer: this.state.currentPlayer + 1
+    });
+  }
+
   handleSubmitForm (player) {
     const players = this.props.players.slice(0);
     players.push(player);
@@ -18,12 +35,18 @@ class Game extends Index {
 
   renderPlayers () {
     const players = this.props.players.map((player, index) => {
-      return <PlayerCard key={'player-' + index} player={player} />;
+      const classnames = classNames('list-group-item', (this.state.currentPlayer === index) ? 'active' : 'disabled');
+      return (
+        <li className={classnames} key={'player-' + index}>
+          <span className="tag tag-default tag-pill float-xs-right">{player.score}</span>
+          {player.name}
+        </li>
+      );
     });
     return (
-      <div className="container">
+      <ul className="list-group">
         {players}
-      </div>
+      </ul>
     );
   }
 

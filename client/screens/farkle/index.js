@@ -42,7 +42,7 @@ class Farkle extends Component {
   renderStartGame () {
     return (
       <div className="container">
-        {(this.props.players.length >= 2) ? <Link to="game">Start Game</Link> : 'Please add more players'}
+        {(this.props.players.length >= 2) ? <Link to="game" className="btn btn-primary">Start Game</Link> : 'Please add more players'}
       </div>
     );
   }
@@ -61,10 +61,10 @@ class Farkle extends Component {
     return (
       <Wrapper>
         <div className="container">
-          <PlayerForm submitForm={this.savePlayer} />
+          {(!this.state.loading) ? <PlayerOrderList onSortEnd={this.onSortEnd} players={this.props.players} /> : <Loading />}
         </div>
         <div className="container">
-          {(!this.state.loading) ? <PlayerOrderList onSortEnd={this.onSortEnd} players={this.props.players} /> : <Loading />}
+          <PlayerForm submitForm={this.savePlayer} />
         </div>
         {(!this.state.loading) ? this.renderStartGame() : null}
       </Wrapper>

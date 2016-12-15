@@ -4,7 +4,7 @@ import { SortableContainer, SortableHandle, SortableElement, arrayMove } from 'r
 const DragHandle = SortableHandle(() => <span>::</span>);
 
 const Player = SortableElement(({ player, index }) => (
-  <li key={index} className="player-list-item">
+  <li key={index} className="list-group-item player-list-item">
     <DragHandle />
     { player }
   </li>
@@ -15,7 +15,7 @@ const List = SortableContainer(({ players }) => {
     <Player player={player.name} index={index} key={'player-' + index} />
   ));
   return (
-    <ul className="player-list">
+    <ul className="list-group player-list">
       { PlayerList }
     </ul>
   );
@@ -36,7 +36,7 @@ class SortablePlayerList extends Component {
   render () {
     return (
       <div>
-        <h3>Order Players</h3>
+        <h2>Players</h2>
         <List onSortEnd={this.onSortEnd} players={this.props.players} useDragHandle />
       </div>
     );
