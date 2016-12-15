@@ -11,7 +11,8 @@ class PlayerForm extends Component {
     this.state = {
       errors: {},
       value: {
-        score: 0
+        score: 0,
+        turnCount: 0
       }
     };
 
@@ -45,13 +46,17 @@ class PlayerForm extends Component {
     }
 
     if (isEmpty(errors)) {
+      // no errors so save data
       player = this.state.value;
       this.props.submitForm(player);
       this.setState({
         value: {
-          score: 0
+          score: 0,
+          turnCount: 0
         }
       });
+      // clear text field for another player
+      document.getElementById('name').value = '';
     } else {
       // show errors
       console.log('ERRORS');

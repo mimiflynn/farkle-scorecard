@@ -8,6 +8,15 @@ import Wrapper from '../components/wrapper';
 import { fetchPlayers, savePlayer } from '../../actions/player';
 import { isEmpty } from '../../utils/utils';
 
+const getNextPlayer = (players) => {
+  for (let i = 0; i < players.length - 1; i++) {
+    if (players[i].turnCount > players[i + 1].turnCount) {
+      return i + 1;
+    }
+  }
+  return 0;
+};
+
 class Game extends Component {
   constructor (props) {
     super(props);
@@ -50,11 +59,13 @@ class Game extends Component {
     }
 
     if (isEmpty(errors)) {
+      // no errors so save data
       this.updatePlayerScore(Number.parseInt(this.state.value.score, 10));
       this.setState({
-        currentPlayer: this.state.currentPlayer + 1,
         value: 0
       });
+      // clear text field for next player
+      document.getElementById('score').value = '';
     } else {
       // show errors
       console.log('ERRORS');
@@ -72,7 +83,10 @@ class Game extends Component {
 
   updatePlayerScore (score) {
     const players = this.props.players.slice(0);
-    players[this.state.currentPlayer].score = +score;
+    const newScore = players[this.state.currentPlayer].score + score;
+    const newTurnCount = players[this.state.currentPlayer].turnCount + 1;
+    players[this.state.currentPlayer].score = newScore;
+    players[this.state.currentPlayer].turnCount = newTurnCount;
     this.props.dispatch(savePlayer(players));
   }
 
@@ -118,9 +132,12 @@ class Game extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    console.log('next props', nextProps);
     this.setState({
+      currentPlayer: getNextPlayer(nextProps.players),
       loading: isEmpty(nextProps.players)
     });
+    console.log('next props state', this.state);
   }
 
   componentDidMount () {
@@ -128,6 +145,7 @@ class Game extends Component {
   }
 
   render () {
+    console.log('current player', this.state.currentPlayer);
     return (
       <Wrapper>
         {(this.props.players) ? this.renderCurrentPlayer() : null}
@@ -143,7 +161,6 @@ Game.propTypes = {
 };
 
 function mapStateToProps (state) {
-  console.log('state', state);
   return state.player;
 }
 

@@ -79,7 +79,6 @@ Farkle.propTypes = {
 };
 
 function mapStateToProps (state) {
-  console.log('state', state);
   return state.player;
 }
 
