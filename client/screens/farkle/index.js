@@ -9,12 +9,6 @@ import PlayerOrderList from './components/player-order-list';
 import { fetchPlayers, savePlayer } from '../../actions/player';
 import { isEmpty } from '../../utils/utils';
 
-const Loading = () => (
-  <div className="farkle-loading">
-    <h1 className="farkle-loading-title">Add Players</h1>
-  </div>
-);
-
 class Farkle extends Component {
   constructor (props) {
     super(props);
@@ -61,12 +55,12 @@ class Farkle extends Component {
     return (
       <Wrapper>
         <div className="container">
-          {(!this.state.loading) ? <PlayerOrderList onSortEnd={this.onSortEnd} players={this.props.players} /> : <Loading />}
+          {(!this.state.loading) ? <PlayerOrderList onSortEnd={this.onSortEnd} players={this.props.players} /> : null}
         </div>
+        {(!this.state.loading) ? this.renderStartGame() : null}
         <div className="container">
           <PlayerForm submitForm={this.savePlayer} />
         </div>
-        {(!this.state.loading) ? this.renderStartGame() : null}
       </Wrapper>
     );
   }

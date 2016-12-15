@@ -1,11 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { SortableContainer, SortableHandle, SortableElement, arrayMove } from 'react-sortable-hoc';
-
-const DragHandle = SortableHandle(() => <span>::</span>);
+import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
 const Player = SortableElement(({ player, index }) => (
   <li key={index} className="list-group-item player-list-item">
-    <DragHandle />
     { player }
   </li>
 ));
@@ -37,7 +34,7 @@ class SortablePlayerList extends Component {
     return (
       <div>
         <h2>Players</h2>
-        <List onSortEnd={this.onSortEnd} players={this.props.players} useDragHandle />
+        <List onSortEnd={this.onSortEnd} players={this.props.players} />
       </div>
     );
   }

@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
+import Notification from '../components/notification';
 import Wrapper from '../components/wrapper';
 
 import { fetchPlayers, savePlayer } from '../../actions/player';
@@ -85,17 +86,26 @@ class Game extends Component {
     const players = this.props.players.slice(0);
     const newScore = players[this.state.currentPlayer].score + score;
     const newTurnCount = players[this.state.currentPlayer].turnCount + 1;
+
     players[this.state.currentPlayer].score = newScore;
     players[this.state.currentPlayer].turnCount = newTurnCount;
+    if (!players[this.state.currentPlayer].onBoard && newScore > 500) {
+      players[this.state.currentPlayer].onBoard = true;
+    }
     this.props.dispatch(savePlayer(players));
   }
 
   renderCurrentPlayer () {
     const currentPlayer = this.props.players[this.state.currentPlayer];
+    const alertClassnames = (currentPlayer.onBoard) ? 'alert-success' : 'alert-danger';
     return (
       <div className="container">
-        <h2>{currentPlayer.name}</h2>
-        <div>Score: {currentPlayer.score}</div>
+        <h2>Current Player: {currentPlayer.name}</h2>
+        <Notification className={alertClassnames} duration={10}>
+          <strong>{currentPlayer.name}</strong> is
+          {(currentPlayer.onBoard) ? ' on the board' : ' not on the board. Must score over 500 in one turn to be on the board'}
+        </Notification>
+        <div>Current Score: {currentPlayer.score}</div>
         <form id="player-form" name="player-form" onChange={this.handleChange} onSubmit={this.handleSubmitForm}>
           <div className="form-group row">
             <label htmlFor="score" className="col-xs-2 col-form-label">Turn Score</label>
@@ -132,12 +142,10 @@ class Game extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log('next props', nextProps);
     this.setState({
       currentPlayer: getNextPlayer(nextProps.players),
       loading: isEmpty(nextProps.players)
     });
-    console.log('next props state', this.state);
   }
 
   componentDidMount () {
@@ -145,7 +153,6 @@ class Game extends Component {
   }
 
   render () {
-    console.log('current player', this.state.currentPlayer);
     return (
       <Wrapper>
         {(this.props.players) ? this.renderCurrentPlayer() : null}

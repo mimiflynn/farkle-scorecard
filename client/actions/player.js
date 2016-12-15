@@ -4,7 +4,6 @@ import { getJSON, saveJSON } from '../utils/ss';
 const key = 'players';
 
 function receivePlayers (json) {
-  console.log('receivePlayers', json);
   return {
     type: constants.RECEIVE_PLAYERS,
     json,
@@ -23,7 +22,6 @@ function fetchPlayers () {
 }
 
 function savePlayer (players) {
-  console.log('action players', players);
   return dispatch => {
     return saveJSON(key, players)
       .then(

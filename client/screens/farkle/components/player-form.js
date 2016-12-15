@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import { isDuplicate, isEmpty } from '../../../utils/utils';
 
-// https://facebook.github.io/react/docs/forms.html
 class PlayerForm extends Component {
   constructor (props) {
     super(props);
@@ -11,6 +10,7 @@ class PlayerForm extends Component {
     this.state = {
       errors: {},
       value: {
+        onBoard: false,
         score: 0,
         turnCount: 0
       }
@@ -51,6 +51,7 @@ class PlayerForm extends Component {
       this.props.submitForm(player);
       this.setState({
         value: {
+          onBoard: false,
           score: 0,
           turnCount: 0
         }
@@ -59,7 +60,6 @@ class PlayerForm extends Component {
       document.getElementById('name').value = '';
     } else {
       // show errors
-      console.log('ERRORS');
       this.setState({ errors });
     }
   }
@@ -80,14 +80,16 @@ class PlayerForm extends Component {
           <form id="player-form" name="player-form" onChange={this.handleChange} onSubmit={this.handleSubmitForm}>
             <div className="form-group row">
               <label htmlFor="name" className="col-xs-2 col-form-label">Name</label>
-              <div className="col-xs-10">
+              <div className="col-xs-8">
                 <input type="text" className="form-control" name="name" id="name" aria-describedby="name" placeholder="" />
+              </div>
+              <div className="col-xs-2">
+                <button type="submit" className="btn primary-btn">Submit
+                  <span className="button-addon icon-Arrow-Chevron-Right" />
+                </button>
               </div>
             </div>
             {(!isEmpty(this.state.errors)) ? this.renderError('name') : null}
-            <button type="submit" className="btn primary-btn">Submit
-              <span className="button-addon icon-Arrow-Chevron-Right" />
-            </button>
           </form>
         </div>
       </div>
