@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 import Wrapper from '../components/wrapper';
-// import PlayerCard from './components/player-card';
 
 import { fetchPlayers, savePlayer } from '../../actions/player';
 import { isEmpty } from '../../utils/utils';
@@ -14,23 +13,89 @@ class Game extends Component {
     super(props);
 
     this.state = {
-      currentPlayer: 0
+      currentPlayer: 0,
+      errors: [],
+      value: {
+        score: 0
+      }
     };
 
-    this.handlePlayerClick = this.handlePlayerClick.bind(this);
+    this.renderCurrentPlayer = this.renderCurrentPlayer.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.updatePlayerScore = this.updatePlayerScore.bind(this);
+    this.handleSubmitForm = this.handleSubmitForm.bind(this);
   }
 
-  handlePlayerClick (e) {
-    console.log('player click', e);
+  handleChange (event) {
+    // convert target data into a key value pair
+    const name = event.target.name;
+    const value = event.target.value;
+    const keyValue = {};
+    keyValue[name] = value;
+
     this.setState({
-      currentPlayer: this.state.currentPlayer + 1
+      value: Object.assign({}, this.state.value, keyValue)
     });
   }
 
-  handleSubmitForm (player) {
+  handleSubmitForm (event) {
+    const errors = {};
+
+    event.preventDefault();
+    if (!this.state.value.score) {
+      errors.score = 'Please enter a score';
+    }
+    if (typeof Number.parseInt(this.state.value.score, 10) !== 'number') {
+      errors.score = 'Please enter a number';
+    }
+
+    if (isEmpty(errors)) {
+      this.updatePlayerScore(Number.parseInt(this.state.value.score, 10));
+      this.setState({
+        currentPlayer: this.state.currentPlayer + 1,
+        value: 0
+      });
+    } else {
+      // show errors
+      console.log('ERRORS');
+      this.setState({ errors });
+    }
+  }
+
+  renderError (id) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        {this.state.errors[id]}
+      </div>
+    );
+  }
+
+  updatePlayerScore (score) {
     const players = this.props.players.slice(0);
-    players.push(player);
+    players[this.state.currentPlayer].score = +score;
     this.props.dispatch(savePlayer(players));
+  }
+
+  renderCurrentPlayer () {
+    const currentPlayer = this.props.players[this.state.currentPlayer];
+    return (
+      <div className="container">
+        <h2>{currentPlayer.name}</h2>
+        <div>Score: {currentPlayer.score}</div>
+        <form id="player-form" name="player-form" onChange={this.handleChange} onSubmit={this.handleSubmitForm}>
+          <div className="form-group row">
+            <label htmlFor="score" className="col-xs-2 col-form-label">Turn Score</label>
+            <div className="col-xs-10">
+              <input type="text" className="form-control" name="score" id="score" aria-describedby="score" placeholder="" />
+            </div>
+          </div>
+          {(!isEmpty(this.state.errors)) ? this.renderError('score') : null}
+          <button type="submit" className="btn primary-btn">Submit
+            <span className="button-addon icon-Arrow-Chevron-Right" />
+          </button>
+        </form>
+      </div>
+    );
   }
 
   renderPlayers () {
@@ -44,9 +109,11 @@ class Game extends Component {
       );
     });
     return (
-      <ul className="list-group">
-        {players}
-      </ul>
+      <div className="container">
+        <ul className="list-group">
+          {players}
+        </ul>
+      </div>
     );
   }
 
@@ -63,6 +130,7 @@ class Game extends Component {
   render () {
     return (
       <Wrapper>
+        {(this.props.players) ? this.renderCurrentPlayer() : null}
         {(this.props.players) ? this.renderPlayers() : <Link to="/">Add players</Link>}
       </Wrapper>
     );
