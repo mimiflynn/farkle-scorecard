@@ -1,10 +1,10 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
+import Wrapper from '../components/wrapper';
 import PlayerForm from './components/player-form';
-import PlayerList from './components/player-list';
-import Reference from './components/reference';
-import Rules from './components/rules';
+import PlayerOrderList from './components/player-order-list';
 
 import { fetchPlayers, savePlayer } from '../../actions/player';
 import { isEmpty } from '../../utils/utils';
@@ -16,7 +16,6 @@ const Loading = () => (
 );
 
 class Farkle extends Component {
-
   constructor (props) {
     super(props);
 
@@ -25,12 +24,12 @@ class Farkle extends Component {
       turnOrder: []
     };
 
-    this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    this.savePlayer = this.savePlayer.bind(this);
     this.onSortEnd = this.onSortEnd.bind(this);
+    this.renderStartGame = this.renderStartGame.bind(this);
   }
 
-  handleSubmitForm (player) {
-    console.log('handleSubmitForm', player);
+  savePlayer (player) {
     const players = this.props.players.slice(0);
     players.push(player);
     this.props.dispatch(savePlayer(players));
@@ -40,12 +39,15 @@ class Farkle extends Component {
     this.props.dispatch(savePlayer(players));
   }
 
-  renderPlayerList () {
-    return (this.props.players) ? <Loading /> : <PlayerList onSortEnd={this.onSortEnd} players={this.props.players} />;
+  renderStartGame () {
+    return (
+      <div className="container">
+        {(this.props.players.length >= 2) ? <Link to="game">Start Game</Link> : 'Please add more players'}
+      </div>
+    );
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log('nextProps', nextProps);
     this.setState({
       loading: isEmpty(nextProps.players)
     });
@@ -56,22 +58,16 @@ class Farkle extends Component {
   }
 
   render () {
-    console.log('props', this.props);
     return (
-      <div>
+      <Wrapper>
         <div className="container">
-          <PlayerForm submitForm={this.handleSubmitForm} />
+          <PlayerForm submitForm={this.savePlayer} />
         </div>
         <div className="container">
-          {(!this.state.loading) ? <PlayerList onSortEnd={this.onSortEnd} players={this.props.players} /> : <Loading />}
+          {(!this.state.loading) ? <PlayerOrderList onSortEnd={this.onSortEnd} players={this.props.players} /> : <Loading />}
         </div>
-        <div className="container">
-          <Rules />
-        </div>
-        <div className="container">
-          <Reference />
-        </div>
-      </div>
+        {(!this.state.loading) ? this.renderStartGame() : null}
+      </Wrapper>
     );
   }
 }

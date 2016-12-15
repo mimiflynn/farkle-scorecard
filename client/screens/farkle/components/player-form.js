@@ -35,8 +35,6 @@ class PlayerForm extends Component {
     let player = null;
 
     event.preventDefault();
-    console.log('submit click', event);
-
     if (!this.state.value.name) {
       errors.name = 'Please enter a name';
     }
@@ -66,7 +64,6 @@ class PlayerForm extends Component {
   }
 
   render () {
-    console.log('state!', this.state);
     return (
       <div className="container template-with-sidebar-section">
         <div className="margin-bottom-20">

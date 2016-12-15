@@ -34,10 +34,9 @@ class SortablePlayerList extends Component {
   }
 
   render () {
-    console.log('props in list', this.props.players);
     return (
       <div>
-        <h3>Players</h3>
+        <h3>Order Players</h3>
         <List onSortEnd={this.onSortEnd} players={this.props.players} useDragHandle />
       </div>
     );

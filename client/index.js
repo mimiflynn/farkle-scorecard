@@ -6,6 +6,9 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import { Home } from './screens/home/index';
 import Farkle from './screens/farkle/index';
+import Game from './screens/farkle/game';
+import Reference from './screens/farkle/reference';
+import Rules from './screens/farkle/rules';
 
 import configureStore from './store';
 
@@ -27,6 +30,9 @@ render(
     <Router history={history}>
       <Route path="/" component={Home}>
         <IndexRoute component={Farkle} />
+        <Route path="game" component={Game} />
+        <Route path="reference" component={Reference} />
+        <Route path="rules" component={Rules} />
       </Route>
     </Router>
   </Provider>,
