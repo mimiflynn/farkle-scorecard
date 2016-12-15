@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
+
+import { isDuplicate, isEmpty } from '../../../utils/utils';
 
 // https://facebook.github.io/react/docs/forms.html
 class PlayerForm extends Component {
@@ -8,11 +9,13 @@ class PlayerForm extends Component {
     super(props);
 
     this.state = {
+      errors: {},
       value: {}
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    this.renderError = this.renderError.bind(this);
   }
 
   handleChange (event) {
@@ -28,17 +31,20 @@ class PlayerForm extends Component {
   }
 
   handleSubmitForm (event) {
-    const errors = [];
+    const errors = {};
     let player = null;
 
     event.preventDefault();
     console.log('submit click', event);
 
     if (!this.state.value.name) {
-      errors.push('name');
+      errors.name = 'Please enter a name';
+    }
+    if (isDuplicate(this.state.value.name, 'name', this.props.players)) {
+      errors.name = 'This person has already been added';
     }
 
-    if (errors.length === 0) {
+    if (isEmpty(errors)) {
       player = this.state.value;
       this.props.submitForm(player);
       this.setState({
@@ -46,15 +52,21 @@ class PlayerForm extends Component {
       });
     } else {
       // show errors
-      errors.forEach((item) => {
-        const node = document.getElementById(item).parentNode;
-        const currentClassName = node.className;
-        node.className = classnames(currentClassName, 'error');
-      });
+      console.log('ERRORS');
+      this.setState({ errors });
     }
   }
 
+  renderError (id) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        {this.state.errors[id]}
+      </div>
+    );
+  }
+
   render () {
+    console.log('state!', this.state);
     return (
       <div className="container template-with-sidebar-section">
         <div className="margin-bottom-20">
@@ -64,6 +76,7 @@ class PlayerForm extends Component {
               <label htmlFor="name">Name</label>
               <input type="text" className="form-control" name="name" id="name" aria-describedby="name" placeholder="" />
             </div>
+            {(!isEmpty(this.state.errors)) ? this.renderError('name') : null}
             <button type="submit" className="btn primary-btn">Submit
               <span className="button-addon icon-Arrow-Chevron-Right" />
             </button>
@@ -75,7 +88,7 @@ class PlayerForm extends Component {
 }
 
 PlayerForm.propTypes = {
-  player: PropTypes.object,
+  players: PropTypes.array,
   submitForm: PropTypes.func,
   dispatch: PropTypes.func
 };

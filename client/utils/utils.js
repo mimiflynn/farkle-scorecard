@@ -5,6 +5,15 @@ function isEmpty (data) {
   return false;
 }
 
+function isDuplicate (item, key, array) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].name === item) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function formatPhone (phonenum) {
   const regex = /^(?:\+?1[-. ]?)?(?:\(?([0-9]{3})\)?[-. ]?)?([0-9]{3})[-. ]?([0-9]{4})$/;
   let phone = '';
@@ -30,5 +39,5 @@ function orderByDate (arr, dateKey) {
   });
 }
 
-module.exports = { isEmpty, formatPhone, orderByDate };
+module.exports = { isEmpty, isDuplicate, formatPhone, orderByDate };
 
