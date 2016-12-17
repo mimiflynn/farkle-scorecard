@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import Modal from 'react-modal';
 
 import Notification from '../components/notification';
 import Wrapper from '../components/wrapper';
@@ -18,6 +19,20 @@ const getNextPlayer = (players) => {
   return 0;
 };
 
+const getPrevPlayer = (players) => {
+  const nextPlayer = getNextPlayer(players);
+  if (nextPlayer > players.length - 1) {
+    return players.length - 1;
+  }
+  return nextPlayer - 1;
+};
+
+const modalStyles = {
+  overlay: {
+    top: '55px'
+  }
+};
+
 class Game extends Component {
   constructor (props) {
     super(props);
@@ -25,6 +40,7 @@ class Game extends Component {
     this.state = {
       currentPlayer: 0,
       errors: [],
+      onBoardModal: false,
       value: {
         score: 0
       }
@@ -32,8 +48,10 @@ class Game extends Component {
 
     this.renderCurrentPlayer = this.renderCurrentPlayer.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleOnBoardModalClose = this.handleOnBoardModalClose.bind(this);
     this.updatePlayerScore = this.updatePlayerScore.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    this.renderOnBoardModal = this.renderOnBoardModal.bind(this);
   }
 
   handleChange (event) {
@@ -48,10 +66,17 @@ class Game extends Component {
     });
   }
 
+  handleOnBoardModalClose () {
+    this.setState({
+      onBoardModal: false
+    });
+  }
+
   handleSubmitForm (event) {
     const errors = {};
 
     event.preventDefault();
+
     if (!this.state.value.score) {
       errors.score = 'Please enter a score';
     }
@@ -62,6 +87,7 @@ class Game extends Component {
     if (isEmpty(errors)) {
       // no errors so save data
       this.updatePlayerScore(Number.parseInt(this.state.value.score, 10));
+
       this.setState({
         value: 0
       });
@@ -83,9 +109,18 @@ class Game extends Component {
   }
 
   updatePlayerScore (score) {
+    let onBoardModal = false;
     const players = this.props.players.slice(0);
     const newScore = players[this.state.currentPlayer].score + score;
     const newTurnCount = players[this.state.currentPlayer].turnCount + 1;
+
+    if (!players[this.state.currentPlayer].onBoard) {
+      console.log(players[this.state.currentPlayer].name);
+      if (score >= 500) {
+        console.log('player is now on the board');
+        onBoardModal = true;
+      }
+    }
 
     players[this.state.currentPlayer].score = newScore;
     players[this.state.currentPlayer].turnCount = newTurnCount;
@@ -93,13 +128,19 @@ class Game extends Component {
       players[this.state.currentPlayer].onBoard = true;
     }
     this.props.dispatch(savePlayer(players));
+    this.setState({ onBoardModal });
   }
 
   renderCurrentPlayer () {
     const currentPlayer = this.props.players[this.state.currentPlayer];
+    const playerIcon = (currentPlayer.icon) ? 'icon-user' : 'icon-wink';
     return (
       <div className="container">
-        <h2>Current Player: {currentPlayer.name}</h2>
+        <h1>Current Player:</h1>
+        <h2>
+          <span className={playerIcon}>&nbsp;</span>
+          {currentPlayer.name}
+        </h2>
         {(currentPlayer.onBoard) ? null : this.renderNotification()}
         <div>Current Score: {currentPlayer.score}</div>
         <form id="player-form" name="player-form" onChange={this.handleChange} onSubmit={this.handleSubmitForm}>
@@ -122,8 +163,8 @@ class Game extends Component {
     const currentPlayer = this.props.players[this.state.currentPlayer];
     const alertClassnames = (currentPlayer.onBoard) ? 'alert-success' : 'alert-danger';
     return (
-      <Notification className={alertClassnames} duration={10}>
-        <span className="icon-notification" />
+      <Notification className={alertClassnames} duration={10} timer={false}>
+        <span className="icon-notification">&nbsp;</span>
         <strong>{currentPlayer.name}</strong> is
         {(currentPlayer.onBoard) ? ' on the board' : ' not on the board. Must score over 500 in one turn to be on the board'}
       </Notification>
@@ -133,9 +174,12 @@ class Game extends Component {
   renderPlayers () {
     const players = this.props.players.map((player, index) => {
       const classnames = classNames('list-group-item', (this.state.currentPlayer === index) ? 'active' : 'disabled');
+      const playerIcon = (player.icon) ? 'icon-user' : 'icon-wink';
+      const onBoardIcon = (player.onBoard) ? null : 'icon-notification';
       return (
         <li className={classnames} key={'player-' + index}>
-          <span className="icon-notification padding-left-5" />
+          <span className={onBoardIcon}>&nbsp;</span>
+          <span className={playerIcon}>&nbsp;</span>
           <span className="tag tag-default tag-pill float-xs-right">{player.score}</span>
           {player.name}
         </li>
@@ -147,6 +191,32 @@ class Game extends Component {
           {players}
         </ul>
       </div>
+    );
+  }
+
+  renderOnBoardModal () {
+    return (
+      <Modal
+        className="Modal__Bootstrap modal-dialog"
+        closeTimeoutMS={150}
+        contentLabel="Player is now on board!"
+        isOpen={this.state.onBoardModal}
+        onRequestClose={this.handleOnBoardModalClose}
+        style={modalStyles}
+      >
+        <div className="modal-content">
+          <div className="modal-header">
+            <button type="button" className="close" onClick={this.handleModalCloseRequest}>
+              <span aria-hidden="true">&times;</span>
+              <span className="sr-only">Close</span>
+            </button>
+            <h4 className="modal-title">{this.props.players[getPrevPlayer(this.props.players)].name} is now on the board!</h4>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-default" onClick={this.handleOnBoardModalClose}>Close</button>
+          </div>
+        </div>
+      </Modal>
     );
   }
 
@@ -166,6 +236,7 @@ class Game extends Component {
       <Wrapper>
         {(this.props.players) ? this.renderCurrentPlayer() : null}
         {(this.props.players) ? this.renderPlayers() : <Link to="/">Add players</Link>}
+        {(this.props.players) ? this.renderOnBoardModal() : null}
       </Wrapper>
     );
   }

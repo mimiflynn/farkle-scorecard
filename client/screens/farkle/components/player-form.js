@@ -76,7 +76,7 @@ class PlayerForm extends Component {
     return (
       <div className="container template-with-sidebar-section">
         <div className="margin-bottom-20">
-          <h2 className="text-upper">Add Player</h2>
+          <h2 className="text-upper"><span className="icon-user-plus">&nbsp;</span>Add Player</h2>
           <form id="player-form" name="player-form" onChange={this.handleChange} onSubmit={this.handleSubmitForm}>
             <div className="form-group row">
               <label htmlFor="name" className="col-xs-2 col-form-label">Name</label>

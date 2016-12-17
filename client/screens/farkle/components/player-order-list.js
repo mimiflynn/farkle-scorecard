@@ -1,15 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
-const Player = SortableElement(({ player, index }) => (
-  <li key={index} className="list-group-item player-list-item">
-    { player }
-  </li>
-));
+const Player = SortableElement(({ player, index }) => {
+  const playerIcon = (player.icon) ? 'icon-user' : 'icon-wink';
+  return (
+    <li key={index} className="list-group-item player-list-item">
+      <span className={playerIcon}>&nbsp;</span>
+      { player.name }
+    </li>
+  );
+});
 
 const List = SortableContainer(({ players }) => {
   const PlayerList = players.map((player, index) => (
-    <Player player={player.name} index={index} key={'player-' + index} />
+    <Player player={player} index={index} key={'player-' + index} />
   ));
   return (
     <ul className="list-group player-list">
@@ -33,7 +37,7 @@ class SortablePlayerList extends Component {
   render () {
     return (
       <div>
-        <h2>Players</h2>
+        <h2><span className="icon-users">&nbsp;</span>Players</h2>
         <List onSortEnd={this.onSortEnd} players={this.props.players} />
       </div>
     );

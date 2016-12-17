@@ -32,12 +32,13 @@ class Notification extends Component {
   }
 
   render () {
-    this.setTimer();
+    if (this.props.timer) this.setTimer();
     return (this.state.show) ? this.renderNotification() : null;
   }
 }
 
 Notification.propTypes = {
+  timer: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string
 };
