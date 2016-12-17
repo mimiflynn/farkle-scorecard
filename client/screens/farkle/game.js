@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 import Modal from 'react-modal';
 
 import Notification from '../components/notification';
 import Wrapper from '../components/wrapper';
 
+import CurrentPlayer from './components/player-current';
 import PlayerList from './components/player-list';
 
 import { fetchPlayers, savePlayer } from '../../actions/player';
@@ -112,16 +112,9 @@ class Game extends Component {
 
   renderCurrentPlayer () {
     const currentPlayer = this.props.players[this.state.currentPlayer];
-    const playerIcon = (currentPlayer.icon) ? 'icon-user' : 'icon-wink';
     return (
-      <div className="container">
-        <h1>Current Player:</h1>
-        <h2>
-          <span className={playerIcon}>&nbsp;</span>
-          {currentPlayer.name}
-        </h2>
+      <CurrentPlayer currentPlayer={currentPlayer}>
         {(currentPlayer.onBoard) ? null : this.renderNotification()}
-        <div>Current Score: {currentPlayer.score}</div>
         <form id="player-form" name="player-form" onChange={this.handleChange} onSubmit={this.handleSubmitForm}>
           <div className="form-group row">
             <label htmlFor="score" className="col-xs-2 col-form-label">Turn Score</label>
@@ -134,7 +127,7 @@ class Game extends Component {
             <span className="button-addon icon-Arrow-Chevron-Right" />
           </button>
         </form>
-      </div>
+      </CurrentPlayer>
     );
   }
 
