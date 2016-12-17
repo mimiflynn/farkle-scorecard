@@ -97,14 +97,10 @@ class Game extends Component {
 
   renderCurrentPlayer () {
     const currentPlayer = this.props.players[this.state.currentPlayer];
-    const alertClassnames = (currentPlayer.onBoard) ? 'alert-success' : 'alert-danger';
     return (
       <div className="container">
         <h2>Current Player: {currentPlayer.name}</h2>
-        <Notification className={alertClassnames} duration={10}>
-          <strong>{currentPlayer.name}</strong> is
-          {(currentPlayer.onBoard) ? ' on the board' : ' not on the board. Must score over 500 in one turn to be on the board'}
-        </Notification>
+        {(currentPlayer.onBoard) ? null : this.renderNotification()}
         <div>Current Score: {currentPlayer.score}</div>
         <form id="player-form" name="player-form" onChange={this.handleChange} onSubmit={this.handleSubmitForm}>
           <div className="form-group row">
@@ -122,11 +118,24 @@ class Game extends Component {
     );
   }
 
+  renderNotification () {
+    const currentPlayer = this.props.players[this.state.currentPlayer];
+    const alertClassnames = (currentPlayer.onBoard) ? 'alert-success' : 'alert-danger';
+    return (
+      <Notification className={alertClassnames} duration={10}>
+        <span className="icon-notification" />
+        <strong>{currentPlayer.name}</strong> is
+        {(currentPlayer.onBoard) ? ' on the board' : ' not on the board. Must score over 500 in one turn to be on the board'}
+      </Notification>
+    );
+  }
+
   renderPlayers () {
     const players = this.props.players.map((player, index) => {
       const classnames = classNames('list-group-item', (this.state.currentPlayer === index) ? 'active' : 'disabled');
       return (
         <li className={classnames} key={'player-' + index}>
+          <span className="icon-notification padding-left-5" />
           <span className="tag tag-default tag-pill float-xs-right">{player.score}</span>
           {player.name}
         </li>
