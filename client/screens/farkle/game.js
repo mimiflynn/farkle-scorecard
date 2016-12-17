@@ -7,25 +7,12 @@ import Modal from 'react-modal';
 import Notification from '../components/notification';
 import Wrapper from '../components/wrapper';
 
+import PlayerList from './components/player-list';
+
 import { fetchPlayers, savePlayer } from '../../actions/player';
 import { isEmpty } from '../../utils/utils';
+import { getNextPlayer, getPrevPlayer } from '../../utils/game';
 
-const getNextPlayer = (players) => {
-  for (let i = 0; i < players.length - 1; i++) {
-    if (players[i].turnCount > players[i + 1].turnCount) {
-      return i + 1;
-    }
-  }
-  return 0;
-};
-
-const getPrevPlayer = (players) => {
-  const nextPlayer = getNextPlayer(players);
-  if (nextPlayer > players.length - 1) {
-    return players.length - 1;
-  }
-  return nextPlayer - 1;
-};
 
 const modalStyles = {
   overlay: {
@@ -100,14 +87,6 @@ class Game extends Component {
     }
   }
 
-  renderError (id) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        {this.state.errors[id]}
-      </div>
-    );
-  }
-
   updatePlayerScore (score) {
     let onBoardModal = false;
     const players = this.props.players.slice(0);
@@ -159,6 +138,14 @@ class Game extends Component {
     );
   }
 
+  renderError (id) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        {this.state.errors[id]}
+      </div>
+    );
+  }
+
   renderNotification () {
     const currentPlayer = this.props.players[this.state.currentPlayer];
     const alertClassnames = (currentPlayer.onBoard) ? 'alert-success' : 'alert-danger';
@@ -168,29 +155,6 @@ class Game extends Component {
         <strong>{currentPlayer.name}</strong> is
         {(currentPlayer.onBoard) ? ' on the board' : ' not on the board. Must score over 500 in one turn to be on the board'}
       </Notification>
-    );
-  }
-
-  renderPlayers () {
-    const players = this.props.players.map((player, index) => {
-      const classnames = classNames('list-group-item', (this.state.currentPlayer === index) ? 'active' : 'disabled');
-      const playerIcon = (player.icon) ? 'icon-user' : 'icon-wink';
-      const onBoardIcon = (player.onBoard) ? null : 'icon-notification';
-      return (
-        <li className={classnames} key={'player-' + index}>
-          <span className={onBoardIcon}>&nbsp;</span>
-          <span className={playerIcon}>&nbsp;</span>
-          <span className="tag tag-default tag-pill float-xs-right">{player.score}</span>
-          {player.name}
-        </li>
-      );
-    });
-    return (
-      <div className="container">
-        <ul className="list-group">
-          {players}
-        </ul>
-      </div>
     );
   }
 
@@ -235,7 +199,7 @@ class Game extends Component {
     return (
       <Wrapper>
         {(this.props.players) ? this.renderCurrentPlayer() : null}
-        {(this.props.players) ? this.renderPlayers() : <Link to="/">Add players</Link>}
+        {(this.props.players) ? <PlayerList currentPlayer={this.state.currentPlayer} players={this.props.players} /> : <Link to="/">Add players</Link>}
         {(this.props.players) ? this.renderOnBoardModal() : null}
       </Wrapper>
     );
