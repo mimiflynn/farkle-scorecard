@@ -26,19 +26,19 @@ webpackJsonp([0],[
 
 	var _game2 = _interopRequireDefault(_game);
 
-	var _reference = __webpack_require__(466);
+	var _reference = __webpack_require__(469);
 
 	var _reference2 = _interopRequireDefault(_reference);
 
-	var _rules = __webpack_require__(467);
+	var _rules = __webpack_require__(470);
 
 	var _rules2 = _interopRequireDefault(_rules);
 
-	var _store = __webpack_require__(468);
+	var _store = __webpack_require__(471);
 
 	var _store2 = _interopRequireDefault(_store);
 
-	__webpack_require__(472);
+	__webpack_require__(475);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -452,16 +452,41 @@ webpackJsonp([0],[
 	      this.props.dispatch((0, _player.savePlayer)(players));
 	    }
 	  }, {
+	    key: 'renderPlayerOrderList',
+	    value: function renderPlayerOrderList() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'container' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-xs-12' },
+	            !this.state.loading ? _react2.default.createElement(_playerOrderList2.default, { onSortEnd: this.onSortEnd, players: this.props.players }) : null
+	          )
+	        )
+	      );
+	    }
+	  }, {
 	    key: 'renderStartGame',
 	    value: function renderStartGame() {
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container' },
-	        this.props.players.length >= 2 ? _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'game', className: 'btn btn-primary' },
-	          'Start Game'
-	        ) : 'Please add more players'
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-xs-12' },
+	            this.props.players.length >= 2 ? _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: 'game', className: 'btn btn-primary' },
+	              'Start Game'
+	            ) : 'Please add more players'
+	          )
+	        )
 	      );
 	    }
 	  }, {
@@ -482,16 +507,20 @@ webpackJsonp([0],[
 	      return _react2.default.createElement(
 	        _wrapper2.default,
 	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'container' },
-	          !this.state.loading ? _react2.default.createElement(_playerOrderList2.default, { onSortEnd: this.onSortEnd, players: this.props.players }) : null
-	        ),
+	        !this.state.loading ? this.renderPlayerOrderList() : null,
 	        !this.state.loading ? this.renderStartGame() : null,
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'container' },
-	          _react2.default.createElement(_playerForm2.default, { submitForm: this.savePlayer })
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-xs-12' },
+	              _react2.default.createElement(_playerForm2.default, { submitForm: this.savePlayer })
+	            )
+	          )
 	        )
 	      );
 	    }
@@ -736,49 +765,45 @@ webpackJsonp([0],[
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'container template-with-sidebar-section' },
+	        { className: 'margin-bottom-20' },
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'margin-bottom-20' },
+	          'h2',
+	          null,
 	          _react2.default.createElement(
-	            'h2',
-	            { className: 'text-upper' },
-	            _react2.default.createElement(
-	              'span',
-	              { className: 'icon-user-plus' },
-	              '\xA0'
-	            ),
-	            'Add Player'
+	            'span',
+	            { className: 'icon-user-plus' },
+	            '\xA0'
 	          ),
+	          'Add Player'
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          { id: 'player-form', name: 'player-form', onChange: this.handleChange, onSubmit: this.handleSubmitForm },
 	          _react2.default.createElement(
-	            'form',
-	            { id: 'player-form', name: 'player-form', onChange: this.handleChange, onSubmit: this.handleSubmitForm },
+	            'div',
+	            { className: 'form-group row' },
+	            _react2.default.createElement(
+	              'label',
+	              { htmlFor: 'name', className: 'col-xs-2 col-form-label' },
+	              'Name'
+	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'form-group row' },
-	              _react2.default.createElement(
-	                'label',
-	                { htmlFor: 'name', className: 'col-xs-2 col-form-label' },
-	                'Name'
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'col-xs-8' },
-	                _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'name', id: 'name', 'aria-describedby': 'name', placeholder: '' })
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'col-xs-2' },
-	                _react2.default.createElement(
-	                  'button',
-	                  { type: 'submit', className: 'btn primary-btn' },
-	                  'Submit',
-	                  _react2.default.createElement('span', { className: 'button-addon icon-Arrow-Chevron-Right' })
-	                )
-	              )
+	              { className: 'col-xs-8' },
+	              _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'name', id: 'name', 'aria-describedby': 'name', placeholder: '' })
 	            ),
-	            !(0, _utils.isEmpty)(this.state.errors) ? this.renderError('name') : null
-	          )
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-xs-2' },
+	              _react2.default.createElement(
+	                'button',
+	                { type: 'submit', className: 'btn primary-btn' },
+	                'Submit',
+	                _react2.default.createElement('span', { className: 'button-addon icon-Arrow-Chevron-Right' })
+	              )
+	            )
+	          ),
+	          !(0, _utils.isEmpty)(this.state.errors) ? this.renderError('name') : null
 	        )
 	      );
 	    }
@@ -7978,10 +8003,6 @@ webpackJsonp([0],[
 
 	var _reactRedux = __webpack_require__(178);
 
-	var _classnames = __webpack_require__(267);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
 	var _reactModal = __webpack_require__(455);
 
 	var _reactModal2 = _interopRequireDefault(_reactModal);
@@ -7994,9 +8015,19 @@ webpackJsonp([0],[
 
 	var _wrapper2 = _interopRequireDefault(_wrapper);
 
+	var _playerCurrent = __webpack_require__(466);
+
+	var _playerCurrent2 = _interopRequireDefault(_playerCurrent);
+
+	var _playerList = __webpack_require__(467);
+
+	var _playerList2 = _interopRequireDefault(_playerList);
+
 	var _player = __webpack_require__(451);
 
 	var _utils = __webpack_require__(272);
+
+	var _game = __webpack_require__(468);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8005,23 +8036,6 @@ webpackJsonp([0],[
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var getNextPlayer = function getNextPlayer(players) {
-	  for (var i = 0; i < players.length - 1; i++) {
-	    if (players[i].turnCount > players[i + 1].turnCount) {
-	      return i + 1;
-	    }
-	  }
-	  return 0;
-	};
-
-	var getPrevPlayer = function getPrevPlayer(players) {
-	  var nextPlayer = getNextPlayer(players);
-	  if (nextPlayer > players.length - 1) {
-	    return players.length - 1;
-	  }
-	  return nextPlayer - 1;
-	};
 
 	var modalStyles = {
 	  overlay: {
@@ -8105,15 +8119,6 @@ webpackJsonp([0],[
 	      }
 	    }
 	  }, {
-	    key: 'renderError',
-	    value: function renderError(id) {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'alert alert-danger', role: 'alert' },
-	        this.state.errors[id]
-	      );
-	    }
-	  }, {
 	    key: 'updatePlayerScore',
 	    value: function updatePlayerScore(score) {
 	      var onBoardModal = false;
@@ -8141,32 +8146,10 @@ webpackJsonp([0],[
 	    key: 'renderCurrentPlayer',
 	    value: function renderCurrentPlayer() {
 	      var currentPlayer = this.props.players[this.state.currentPlayer];
-	      var playerIcon = currentPlayer.icon ? 'icon-user' : 'icon-wink';
 	      return _react2.default.createElement(
-	        'div',
-	        { className: 'container' },
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Current Player:'
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          _react2.default.createElement(
-	            'span',
-	            { className: playerIcon },
-	            '\xA0'
-	          ),
-	          currentPlayer.name
-	        ),
+	        _playerCurrent2.default,
+	        { currentPlayer: currentPlayer },
 	        currentPlayer.onBoard ? null : this.renderNotification(),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          'Current Score: ',
-	          currentPlayer.score
-	        ),
 	        _react2.default.createElement(
 	          'form',
 	          { id: 'player-form', name: 'player-form', onChange: this.handleChange, onSubmit: this.handleSubmitForm },
@@ -8195,6 +8178,15 @@ webpackJsonp([0],[
 	      );
 	    }
 	  }, {
+	    key: 'renderError',
+	    value: function renderError(id) {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'alert alert-danger', role: 'alert' },
+	        this.state.errors[id]
+	      );
+	    }
+	  }, {
 	    key: 'renderNotification',
 	    value: function renderNotification() {
 	      var currentPlayer = this.props.players[this.state.currentPlayer];
@@ -8214,46 +8206,6 @@ webpackJsonp([0],[
 	        ),
 	        ' is',
 	        currentPlayer.onBoard ? ' on the board' : ' not on the board. Must score over 500 in one turn to be on the board'
-	      );
-	    }
-	  }, {
-	    key: 'renderPlayers',
-	    value: function renderPlayers() {
-	      var _this2 = this;
-
-	      var players = this.props.players.map(function (player, index) {
-	        var classnames = (0, _classnames2.default)('list-group-item', _this2.state.currentPlayer === index ? 'active' : 'disabled');
-	        var playerIcon = player.icon ? 'icon-user' : 'icon-wink';
-	        var onBoardIcon = player.onBoard ? null : 'icon-notification';
-	        return _react2.default.createElement(
-	          'li',
-	          { className: classnames, key: 'player-' + index },
-	          _react2.default.createElement(
-	            'span',
-	            { className: onBoardIcon },
-	            '\xA0'
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            { className: playerIcon },
-	            '\xA0'
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'tag tag-default tag-pill float-xs-right' },
-	            player.score
-	          ),
-	          player.name
-	        );
-	      });
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'container' },
-	        _react2.default.createElement(
-	          'ul',
-	          { className: 'list-group' },
-	          players
-	        )
 	      );
 	    }
 	  }, {
@@ -8292,7 +8244,7 @@ webpackJsonp([0],[
 	            _react2.default.createElement(
 	              'h4',
 	              { className: 'modal-title' },
-	              this.props.players[getPrevPlayer(this.props.players)].name,
+	              this.props.players[(0, _game.getPrevPlayer)(this.props.players)].name,
 	              ' is now on the board!'
 	            )
 	          ),
@@ -8312,7 +8264,7 @@ webpackJsonp([0],[
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      this.setState({
-	        currentPlayer: getNextPlayer(nextProps.players),
+	        currentPlayer: (0, _game.getNextPlayer)(nextProps.players),
 	        loading: (0, _utils.isEmpty)(nextProps.players)
 	      });
 	    }
@@ -8328,7 +8280,7 @@ webpackJsonp([0],[
 	        _wrapper2.default,
 	        null,
 	        this.props.players ? this.renderCurrentPlayer() : null,
-	        this.props.players ? this.renderPlayers() : _react2.default.createElement(
+	        this.props.players ? _react2.default.createElement(_playerList2.default, { currentPlayer: this.state.currentPlayer, players: this.props.players }) : _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/' },
 	          'Add players'
@@ -9779,6 +9731,156 @@ webpackJsonp([0],[
 
 	var _react2 = _interopRequireDefault(_react);
 
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PlayerCurrent = function PlayerCurrent(_ref) {
+	  var children = _ref.children,
+	      currentPlayer = _ref.currentPlayer;
+
+	  var playerIcon = currentPlayer.icon ? 'icon-user' : 'icon-wink';
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'container' },
+	    _react2.default.createElement(
+	      'h1',
+	      null,
+	      'Current Player:'
+	    ),
+	    _react2.default.createElement(
+	      'h2',
+	      null,
+	      _react2.default.createElement(
+	        'span',
+	        { className: playerIcon },
+	        '\xA0'
+	      ),
+	      currentPlayer.name
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      'Current Score: ',
+	      currentPlayer.score
+	    ),
+	    children
+	  );
+	};
+
+	PlayerCurrent.propTypes = {
+	  children: _react.PropTypes.node,
+	  currentPlayer: _react.PropTypes.object,
+	  players: _react.PropTypes.array
+	};
+
+	exports.default = PlayerCurrent;
+
+/***/ },
+/* 467 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(267);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PlayerList = function PlayerList(_ref) {
+	  var currentPlayer = _ref.currentPlayer,
+	      players = _ref.players;
+
+	  var playerList = players.map(function (player, index) {
+	    var classnames = (0, _classnames2.default)('list-group-item', currentPlayer === index ? 'active' : 'disabled');
+	    var playerIcon = player.icon ? 'icon-user' : 'icon-wink';
+	    var onBoardIcon = player.onBoard ? null : 'icon-notification';
+	    return _react2.default.createElement(
+	      'li',
+	      { className: classnames, key: 'player-' + index },
+	      _react2.default.createElement(
+	        'span',
+	        { className: onBoardIcon },
+	        '\xA0'
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: playerIcon },
+	        '\xA0'
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'tag tag-default tag-pill float-xs-right' },
+	        player.score
+	      ),
+	      player.name
+	    );
+	  });
+
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'container' },
+	    _react2.default.createElement(
+	      'ul',
+	      { className: 'list-group' },
+	      playerList
+	    )
+	  );
+	};
+
+	PlayerList.propTypes = {
+	  currentPlayer: _react.PropTypes.number,
+	  players: _react.PropTypes.array
+	};
+
+	exports.default = PlayerList;
+
+/***/ },
+/* 468 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var getNextPlayer = function getNextPlayer(players) {
+	  for (var i = 0; i < players.length - 1; i++) {
+	    if (players[i].turnCount > players[i + 1].turnCount) {
+	      return i + 1;
+	    }
+	  }
+	  return 0;
+	};
+
+	var getPrevPlayer = function getPrevPlayer(players) {
+	  var nextPlayer = getNextPlayer(players);
+	  if (nextPlayer > players.length - 1) {
+	    return players.length - 1;
+	  }
+	  return nextPlayer - 1;
+	};
+
+	module.exports = { getNextPlayer: getNextPlayer, getPrevPlayer: getPrevPlayer };
+
+/***/ },
+/* 469 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _wrapper = __webpack_require__(269);
 
 	var _wrapper2 = _interopRequireDefault(_wrapper);
@@ -9953,7 +10055,7 @@ webpackJsonp([0],[
 	exports.default = reference;
 
 /***/ },
-/* 467 */
+/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10046,7 +10148,7 @@ webpackJsonp([0],[
 	exports.default = rules;
 
 /***/ },
-/* 468 */
+/* 471 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10061,11 +10163,11 @@ webpackJsonp([0],[
 
 	var _reactRouterRedux = __webpack_require__(261);
 
-	var _reduxThunk = __webpack_require__(469);
+	var _reduxThunk = __webpack_require__(472);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _reducers = __webpack_require__(470);
+	var _reducers = __webpack_require__(473);
 
 	var reducers = _interopRequireWildcard(_reducers);
 
@@ -10086,8 +10188,8 @@ webpackJsonp([0],[
 	exports.default = configureStore;
 
 /***/ },
-/* 469 */,
-/* 470 */
+/* 472 */,
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10097,7 +10199,7 @@ webpackJsonp([0],[
 	});
 	exports.player = undefined;
 
-	var _player = __webpack_require__(471);
+	var _player = __webpack_require__(474);
 
 	var _player2 = _interopRequireDefault(_player);
 
@@ -10106,7 +10208,7 @@ webpackJsonp([0],[
 	exports.player = _player2.default;
 
 /***/ },
-/* 471 */
+/* 474 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10139,16 +10241,16 @@ webpackJsonp([0],[
 	exports.default = update;
 
 /***/ },
-/* 472 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(473);
+	var content = __webpack_require__(476);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(475)(content, {});
+	var update = __webpack_require__(478)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -10165,10 +10267,10 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 473 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(474)();
+	exports = module.exports = __webpack_require__(477)();
 	// imports
 
 
@@ -10179,7 +10281,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 474 */
+/* 477 */
 /***/ function(module, exports) {
 
 	/*
@@ -10235,7 +10337,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 475 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
