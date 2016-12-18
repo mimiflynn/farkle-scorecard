@@ -74,24 +74,22 @@ class PlayerForm extends Component {
 
   render () {
     return (
-      <div className="container template-with-sidebar-section">
-        <div className="margin-bottom-20">
-          <h2 className="text-upper"><span className="icon-user-plus">&nbsp;</span>Add Player</h2>
-          <form id="player-form" name="player-form" onChange={this.handleChange} onSubmit={this.handleSubmitForm}>
-            <div className="form-group row">
-              <label htmlFor="name" className="col-xs-2 col-form-label">Name</label>
-              <div className="col-xs-8">
-                <input type="text" className="form-control" name="name" id="name" aria-describedby="name" placeholder="" />
-              </div>
-              <div className="col-xs-2">
-                <button type="submit" className="btn primary-btn">Submit
-                  <span className="button-addon icon-Arrow-Chevron-Right" />
-                </button>
-              </div>
+      <div className="margin-bottom-20">
+        <h2><span className="icon-user-plus">&nbsp;</span>Add Player</h2>
+        <form id="player-form" name="player-form" onChange={this.handleChange} onSubmit={this.handleSubmitForm}>
+          <div className="form-group row">
+            <label htmlFor="name" className="col-xs-2 col-form-label">Name</label>
+            <div className="col-xs-8">
+              <input type="text" className="form-control" name="name" id="name" aria-describedby="name" placeholder="" />
             </div>
-            {(!isEmpty(this.state.errors)) ? this.renderError('name') : null}
-          </form>
-        </div>
+            <div className="col-xs-2">
+              <button type="submit" className="btn primary-btn">Submit
+                <span className="button-addon icon-Arrow-Chevron-Right" />
+              </button>
+            </div>
+          </div>
+          {(!isEmpty(this.state.errors)) ? this.renderError('name') : null}
+        </form>
       </div>
     );
   }

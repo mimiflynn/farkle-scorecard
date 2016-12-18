@@ -33,10 +33,26 @@ class Farkle extends Component {
     this.props.dispatch(savePlayer(players));
   }
 
+  renderPlayerOrderList () {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-xs-12">
+            {(!this.state.loading) ? <PlayerOrderList onSortEnd={this.onSortEnd} players={this.props.players} /> : null}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   renderStartGame () {
     return (
       <div className="container">
-        {(this.props.players.length >= 2) ? <Link to="game" className="btn btn-primary">Start Game</Link> : 'Please add more players'}
+        <div className="row">
+          <div className="col-xs-12">
+            {(this.props.players.length >= 2) ? <Link to="game" className="btn btn-primary">Start Game</Link> : 'Please add more players'}
+          </div>
+        </div>
       </div>
     );
   }
@@ -54,12 +70,14 @@ class Farkle extends Component {
   render () {
     return (
       <Wrapper>
-        <div className="container">
-          {(!this.state.loading) ? <PlayerOrderList onSortEnd={this.onSortEnd} players={this.props.players} /> : null}
-        </div>
+        {(!this.state.loading) ? this.renderPlayerOrderList() : null}
         {(!this.state.loading) ? this.renderStartGame() : null}
         <div className="container">
-          <PlayerForm submitForm={this.savePlayer} />
+          <div className="row">
+            <div className="col-xs-12">
+              <PlayerForm submitForm={this.savePlayer} />
+            </div>
+          </div>
         </div>
       </Wrapper>
     );
