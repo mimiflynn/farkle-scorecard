@@ -789,12 +789,16 @@ webpackJsonp([0],[
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'col-xs-8' },
+	              { className: 'col-xs-10' },
 	              _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'name', id: 'name', 'aria-describedby': 'name', placeholder: '' })
-	            ),
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'col-xs-2' },
+	              { className: 'col-xs-12' },
 	              _react2.default.createElement(
 	                'button',
 	                { type: 'submit', className: 'btn primary-btn' },
