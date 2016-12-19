@@ -79,10 +79,12 @@ class PlayerForm extends Component {
         <form id="player-form" name="player-form" onChange={this.handleChange} onSubmit={this.handleSubmitForm}>
           <div className="form-group row">
             <label htmlFor="name" className="col-xs-2 col-form-label">Name</label>
-            <div className="col-xs-8">
+            <div className="col-xs-10">
               <input type="text" className="form-control" name="name" id="name" aria-describedby="name" placeholder="" />
             </div>
-            <div className="col-xs-2">
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
               <button type="submit" className="btn primary-btn">Submit
                 <span className="button-addon icon-Arrow-Chevron-Right" />
               </button>
