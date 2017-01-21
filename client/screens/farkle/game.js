@@ -10,6 +10,7 @@ import CurrentPlayer from './components/player-current';
 import PlayerList from './components/player-list';
 
 import { fetchPlayers, savePlayer } from '../../actions/player';
+
 import { isEmpty } from '../../utils/utils';
 import { getNextPlayer, getPrevPlayer } from '../../utils/game';
 
