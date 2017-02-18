@@ -14,7 +14,6 @@ import { fetchPlayers, savePlayer } from '../../actions/player';
 import { isEmpty } from '../../utils/utils';
 import { getNextPlayer, getPrevPlayer } from '../../utils/game';
 
-
 const modalStyles = {
   overlay: {
     top: '55px'
