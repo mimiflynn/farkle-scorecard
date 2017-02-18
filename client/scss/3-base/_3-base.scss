@@ -68,3 +68,10 @@ a:hover {
 .group-list-item.active {
   z-index: 0;
 }
+
+button.nav-link,
+button.modal-close {
+  border: none;
+  background: none;
+  cursor: pointer;
+}

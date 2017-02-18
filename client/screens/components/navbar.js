@@ -47,6 +47,14 @@ class Navbar extends Component {
     });
   }
 
+  renderCloseButton () {
+    return (
+      <button className="modal-close" onClick={this.handleModalClose}>
+        X
+      </button>
+    );
+  }
+
   render () {
     return (
       <nav className="navbar navbar-fixed-top navbar-dark bg-inverse">
@@ -55,31 +63,35 @@ class Navbar extends Component {
           <Link to="/" className="navbar-brand"><span className="icon-dice">&nbsp;</span>Farkle Scorecard</Link>
           <ul className="nav navbar-nav">
             <li className="nav-item">
-              <button onClick={this.handleReferenceClick}>Reference</button>
+              <button className="nav-link" onClick={this.handleReferenceClick}>Reference</button>
             </li>
             <li className="nav-item">
-              <button onClick={this.handleRulesClick}>Rules</button>
+              <button href="#" className="nav-link" onClick={this.handleRulesClick}>Rules</button>
             </li>
             <li className="nav-item">
-              <Link to="game">Current Game</Link>
+              <Link to="game" className="nav-link">Current Game</Link>
             </li>
           </ul>
         </div>
         <Modal
-          contentLabel="Rules"
-          isOpen={this.state.rulesOpen}
-          onRequestClose={this.handleModalClose}
-          style={modalStyle}
-        >
-          <Rules />
-        </Modal>
-        <Modal
           contentLabel="Reference"
           isOpen={this.state.referenceOpen}
           onRequestClose={this.handleModalClose}
+          shouldCloseOnOverlayClick
           style={modalStyle}
         >
+          {this.renderCloseButton()}
           <Reference />
+        </Modal>
+        <Modal
+          contentLabel="Rules"
+          isOpen={this.state.rulesOpen}
+          onRequestClose={this.handleModalClose}
+          shouldCloseOnOverlayClick
+          style={modalStyle}
+        >
+          {this.renderCloseButton()}
+          <Rules />
         </Modal>
       </nav>
     );
