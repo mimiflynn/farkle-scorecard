@@ -24,4 +24,3 @@ const configureStore = (history, initialState) => {
 };
 
 export default configureStore;
-
