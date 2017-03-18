@@ -20,3 +20,9 @@ So you never need paper!
 - set players turn order
 - players roll until on the board (500 or 1000 point options)
 
+## Development
+
+```
+npm install
+npm run dev
+```
