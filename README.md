@@ -26,3 +26,5 @@ So you never need paper!
 npm install
 npm run dev
 ```
+
+Then point your browser to `http://localhost:8080`
