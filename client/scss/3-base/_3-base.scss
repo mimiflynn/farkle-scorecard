@@ -65,7 +65,7 @@ a:hover {
 
 // Bootstrap overrides
 
-.group-list-item.active {
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
   z-index: 0;
 }
 
